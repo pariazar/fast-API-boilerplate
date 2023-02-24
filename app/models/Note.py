@@ -1,13 +1,13 @@
-from .database import Base
-from sqlalchemy import TIMESTAMP, Column, String, Boolean
+import uuid
+from ..database import Base
+from sqlalchemy import Column, String, Boolean, TIMESTAMP
 from sqlalchemy.sql import func
 from fastapi_utils.guid_type import GUID, GUID_SERVER_DEFAULT_POSTGRESQL
 
 
 class Note(Base):
     __tablename__ = 'notes'
-    id = Column(GUID, primary_key=True,
-                server_default=GUID_SERVER_DEFAULT_POSTGRESQL)
+    id = Column(String, primary_key=True, default=str(uuid.uuid4()))
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
     category = Column(String, nullable=True)
